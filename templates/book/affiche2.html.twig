@@ -1,0 +1,31 @@
+<h2>List of Books</h2>
+
+<table border="1">
+  <tr>
+    <td>Title</td>
+    <td>Publication date</td>
+    <td>Published</td>
+    <td>Category</td>
+    <td>Author</td>
+    <td>Actions</td>
+  </tr>
+ {% if books is empty %}
+    <tr>
+      <td colspan="5">No Books found</td>
+    </tr>
+  {% else %}
+  {% for book in books %}
+    <tr>
+      <td>{{ book.Title }}</td>
+      <td>{{ book.PublicationDate|date("F j, Y H:i") }}</td> {# Format PublicationDate as a string using the date filter #}
+      <td>{{ book.published}}</td>
+      <td>{{ book.Category }}</td>
+      <td>{{ book.Author.username }} </td>
+      <td>
+        <a href="{{ path('edit_book', {'ref': book.ref}) }}">edit</a>
+        <a href="{{ path('delete', {'ref': book.ref}) }}">delete</a>
+        <a href="{{ path('show_book', {'ref': book.ref}) }}">show</a>
+      </td>
+    {% endfor %}
+  {% endif %}
+</table>
